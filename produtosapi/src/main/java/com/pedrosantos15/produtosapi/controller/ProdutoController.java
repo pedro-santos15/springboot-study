@@ -5,7 +5,6 @@ import com.pedrosantos15.produtosapi.repository.ProdutoRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
