@@ -21,6 +21,7 @@ public class DatabaseConfiguration {
     @Value("${spring.datasource.driver-class-name}")
     String driver;
 
+
     @Bean
     public DataSource hikariDataSource(){
 
