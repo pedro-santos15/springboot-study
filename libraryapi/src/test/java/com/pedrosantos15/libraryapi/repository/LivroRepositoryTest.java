@@ -6,6 +6,7 @@ import com.pedrosantos15.libraryapi.model.Livro;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -84,6 +85,14 @@ class LivroRepositoryTest {
     @Test
     public void deletarTest(){
         livroRepository.deleteById(UUID.fromString("ExemploID"));
+    }
+
+    @Test
+    @Transactional
+    public void buscarLivroTest(){
+        Livro livro = livroRepository.findById(UUID.fromString("ExemploID")).orElse(null);
+        System.out.println(livro.getTitulo() + " - " + livro.getAutor().getNome());
+
     }
 
 }
