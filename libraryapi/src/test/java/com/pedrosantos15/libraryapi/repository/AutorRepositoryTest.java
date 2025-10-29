@@ -118,15 +118,7 @@ public class AutorRepositoryTest {
         livroRepository.saveAll(autor.getLivros());
     }
 
-    @Test
-    public void listarLivrosAutor(){
-        Autor autor = autorRepository.findById(UUID.fromString("ExemploID")).get();
 
-        List<Livro> livrosLista = livroRepository.findByAutor(autor);
-        autor.setLivros(livrosLista);
-
-        autor.getLivros().forEach(System.out::println);
-    }
 
 
 }

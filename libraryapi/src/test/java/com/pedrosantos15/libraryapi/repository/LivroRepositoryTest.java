@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -94,5 +95,75 @@ class LivroRepositoryTest {
         System.out.println(livro.getTitulo() + " - " + livro.getAutor().getNome());
 
     }
+
+    @Test
+    public void bucarLivrosPorAutor(){
+        Autor autor = autorRepository.findById(UUID.fromString("ExemploID")).get();
+
+        List<Livro> livrosLista = livroRepository.findByAutor(autor);
+        autor.setLivros(livrosLista);
+
+        autor.getLivros().forEach(System.out::println);
+    }
+
+    @Test
+    public void buscaPorTituloTest(){
+
+        List<Livro> livrosEncontrados = livroRepository.findByTitulo("Exemplo Titulo");
+        livrosEncontrados.forEach(System.out::println);
+    }
+
+    @Test
+    public void buscaPorIsbnTest(){
+
+        List<Livro> livrosEncontrados = livroRepository.findByIsbn("Exemplo Isbn");
+        livrosEncontrados.forEach(System.out::println);
+    }
+
+    @Test
+    public void buscaPorTituloEPrecoTest(){
+        List<Livro> livrosEncontrados = livroRepository.findByTituloAndPreco("Exemplo Titulo",
+                BigDecimal.valueOf(100));
+        livrosEncontrados.forEach(System.out::println);
+    }
+
+    @Test
+    public void listarLivrosComQueryJPQL(){
+        List<Livro> resultado = livroRepository.listarTodosPorOrdemDeTituloAndPreco();
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    public void listarAutoresDosLivros(){
+        var resultado = livroRepository.listarAutoresDosLivros();
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    public void listarNomesDiferentesLivros(){
+        var resultado = livroRepository.listarNomeDiferentesLivros();
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    public void listarGenerosDeLivrosAutoresBrasileiros(){
+        var resultado = livroRepository.listarGenerosAutoresBrasileiros();
+        resultado.forEach(System.out::println);
+    }
+
+    @Test
+    public void listarPorGeneroQueryParamTest(){
+        var resultado = livroRepository.findByGenero(GeneroLivro.FICCAO, "dataPublicacao");
+        resultado.forEach(System.out::println);
+    }
+
+
+    @Test
+    public void listarPorGeneroPositionalParamTest(){
+        var resultado = livroRepository.findByGenero(GeneroLivro.FICCAO, "preco");
+        resultado.forEach(System.out::println);
+    }
+
+
 
 }
